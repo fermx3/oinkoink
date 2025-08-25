@@ -37,6 +37,10 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "SUPABASE_URL": "https://ivhubfbleepmjfzqytbv.supabase.co",
+      "SUPABASE_ANON_KEY": "sb_publishable_aem_raRrwW9RJdDYWLkEyg_0hTzqCX9"
     }
   }
 }

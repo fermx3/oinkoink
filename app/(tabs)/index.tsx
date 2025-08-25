@@ -1,75 +1,67 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useState } from "react";
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const moods = [
+  { emoji: "😄", description: "Feliz y lleno de energía" },
+  { emoji: "😐", description: "Neutral, tranquilo" },
+  { emoji: "😢", description: "Triste, necesita cariño" },
+  { emoji: "😡", description: "Enojado, algo le molestó" },
+  { emoji: "🥰", description: "Enamorado y agradecido" },
+];
 
-export default function HomeScreen() {
+export default function App() {
+  const [moodIndex, setMoodIndex] = useState(0);
+  const [message, setMessage] = useState("");
+
+  const cycleMood = () => {
+    setMoodIndex((moodIndex + 1) % moods.length);
+  };
+
+  const currentMood = moods[moodIndex];
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Tu Personaje</Text>
+
+      <TouchableOpacity onPress={cycleMood} style={styles.avatar}>
+        <Text style={styles.emoji}>{currentMood.emoji}</Text>
+      </TouchableOpacity>
+      <Text style={styles.moodDescription}>{currentMood.description}</Text>
+      <Text style={styles.hint}>Toca el emoji para cambiar el estado de ánimo</Text>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Ponle palabras a tu personaje</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="¿Qué diría hoy tu personaje?"
+          value={message}
+          onChangeText={setMessage}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <Text style={styles.preview}>
+          {message ? `"${message}"` : "Aquí verás lo que tu personaje 'dice'."}
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: { flex: 1, padding: 24, gap: 16, backgroundColor: "#fff" },
+  title: { fontSize: 28, fontWeight: "700" },
+  avatar: {
+    alignSelf: "center",
+    width: 140, height: 140, borderRadius: 80,
+    borderWidth: 2, borderColor: "#ddd",
+    alignItems: "center", justifyContent: "center"
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  emoji: { fontSize: 64 },
+  moodDescription: { textAlign: "center", color: "#444", fontSize: 16, marginVertical: 4 },
+  hint: { textAlign: "center", color: "#666" },
+  card: { padding: 16, borderRadius: 16, borderWidth: 1, borderColor: "#eee", gap: 10 },
+  cardTitle: { fontSize: 16, fontWeight: "600" },
+  input: {
+    borderWidth: 1, borderColor: "#ddd", borderRadius: 12,
+    padding: 12
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  preview: { color: "#333", fontStyle: "italic", marginTop: 4 }
 });
