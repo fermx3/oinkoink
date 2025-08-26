@@ -46,6 +46,14 @@ export default function Layout() {
           ios: {
             // Use a transparent background on iOS to show the blur effect
             position: "absolute",
+            backgroundColor: "transparent",
+            borderTopWidth: 0,
+            elevation: 0,
+            shadowOpacity: 0,
+            height: 70,
+            paddingBottom: 20,
+            paddingTop: 10,
+
           },
           default: {},
         }),
@@ -66,6 +74,15 @@ export default function Layout() {
           title: "Mis oinks",
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="person.2.fill" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Ajustes",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="gearshape.fill" color={color} />
           ),
         }}
       />
