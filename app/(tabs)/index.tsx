@@ -2,7 +2,14 @@ import { supabase } from "@/src/services/supabase";
 import { globalStyles as styles } from "@/src/styles/global-styles";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Button, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const moods = [
   { emoji: "😄", description: "Feliz y lleno de energía", mood: "happy" },
@@ -75,16 +82,18 @@ export default function CharacterScreen() {
             {petEmojis[character.pet_type] || "🐾"}
           </Text>
           <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-            {character.pet_type === "puerquito"
-              ? "Puerquito"
-              : character.pet_type === "perrito"
-              ? "Perrito"
-              : ""}
+            {character.name}
           </Text>
           {/* Descripción y emoji del mood actual */}
-          <View style={{ flexDirection: "row", alignItems: "center", marginTop: 8 }}>
-            <Text style={{ fontSize: 22, marginRight: 8 }}>{currentMood.emoji}</Text>
-            <Text style={{ fontSize: 18, color: "#444" }}>{currentMood.description}</Text>
+          <View
+            style={{ flexDirection: "row", alignItems: "center", marginTop: 8 }}
+          >
+            <Text style={{ fontSize: 22, marginRight: 8 }}>
+              {currentMood.emoji}
+            </Text>
+            <Text style={{ fontSize: 18, color: "#444" }}>
+              {currentMood.description}
+            </Text>
           </View>
         </View>
 
@@ -92,9 +101,15 @@ export default function CharacterScreen() {
         <View style={{ flex: 1 }} />
 
         {/* Selector de mood */}
-        <View style={{ alignItems: "center", marginBottom: 24 }}>
-          <Text style={{ fontSize: 18, marginBottom: 8 }}>Selecciona el estado de ánimo:</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
+        <View style={{ alignItems: "center", marginBottom: 32 }}>
+          <Text style={{ fontSize: 18, marginBottom: 8 }}>
+            Selecciona el estado de ánimo:
+          </Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginBottom: 16 }}
+          >
             {moods.map((mood) => (
               <TouchableOpacity
                 key={mood.mood}
@@ -105,19 +120,28 @@ export default function CharacterScreen() {
                   padding: 10,
                   borderRadius: 12,
                   borderWidth: selectedMood.mood === mood.mood ? 2 : 1,
-                  borderColor: selectedMood.mood === mood.mood ? "#4285F4" : "#ccc",
-                  backgroundColor: selectedMood.mood === mood.mood ? "#e3f0ff" : "#fff",
+                  borderColor:
+                    selectedMood.mood === mood.mood ? "#4285F4" : "#ccc",
+                  backgroundColor:
+                    selectedMood.mood === mood.mood ? "#e3f0ff" : "#fff",
                 }}
               >
                 <Text style={{ fontSize: 32 }}>{mood.emoji}</Text>
-                <Text style={{ fontSize: 12, color: "#444", marginTop: 4, textAlign: "center" }}>
+                <Text
+                  style={{
+                    fontSize: 12,
+                    color: "#444",
+                    marginTop: 4,
+                    textAlign: "center",
+                  }}
+                >
                   {mood.description}
                 </Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
           <Button
-            title={updating ? "Actualizando..." : "Confirmar mood"}
+            title={updating ? "Actualizando..." : "Cambiar mood"}
             onPress={handleConfirmMood}
             disabled={updating || selectedMood.mood === currentMood.mood}
           />

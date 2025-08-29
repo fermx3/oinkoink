@@ -3,7 +3,7 @@ import { globalStyles as styles } from "@/src/styles/global-styles";
 import { useNavigation } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Button, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Button, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const pets = [
   { type: "puerquito", label: "🐷 Puerquito" },
@@ -12,6 +12,7 @@ const pets = [
 
 export default function CreateCharacterScreen() {
   const [selectedPet, setSelectedPet] = useState("puerquito");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasCharacter, setHasCharacter] = useState<boolean | null>(null);
   const navigation = useNavigation();
@@ -26,7 +27,10 @@ export default function CreateCharacterScreen() {
         .eq("user_id", user.id)
         .single();
       setHasCharacter(!!data);
-      if (data && data.pet_type) setSelectedPet(data.pet_type);
+      if (data) {
+        if (data.pet_type) setSelectedPet(data.pet_type);
+        if (data.name) setName(data.name);
+      }
     };
     checkCharacter();
   }, []);
@@ -40,12 +44,12 @@ export default function CreateCharacterScreen() {
       // Actualiza el personaje existente
       await supabase
         .from("characters")
-        .update({ pet_type: selectedPet })
+        .update({ pet_type: selectedPet, name })
         .eq("user_id", user.id);
     } else {
       // Crea un nuevo personaje
       await supabase.from("characters").insert([
-        { user_id: user.id, pet_type: selectedPet, mood: "neutral" }
+        { user_id: user.id, pet_type: selectedPet, mood: "neutral", name }
       ]);
     }
     setLoading(false);
@@ -85,10 +89,16 @@ export default function CreateCharacterScreen() {
             </TouchableOpacity>
           ))}
         </View>
+        <TextInput
+          style={[styles.input, { marginBottom: 24 }]}
+          placeholder="Nombre de tu personaje"
+          value={name}
+          onChangeText={setName}
+        />
         <Button
           title={buttonText}
           onPress={handleCreateOrUpdate}
-          disabled={loading}
+          disabled={loading || name.trim() === ""}
         />
       </View>
     </SafeAreaView>

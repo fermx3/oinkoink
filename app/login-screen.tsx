@@ -60,9 +60,9 @@ export default function LoginScreen() {
     }
   };
 
-  const handleLogin = async () => {
+  /* const handleLogin = async () => {
     await supabase.auth.signInWithOAuth({ provider: "google" });
-  };
+  }; */
 
   const handleEmailLogin = async () => {
     setStatus("Iniciando sesión...");
@@ -136,7 +136,7 @@ export default function LoginScreen() {
         </View>
 
         {/* Separador visual */}
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -152,7 +152,7 @@ export default function LoginScreen() {
           title="Iniciar sesión con Google"
           color="#4285F4"
           onPress={handleLogin}
-        />
+        /> */}
 
         {/* Solo muestra el botón si el usuario NO está autenticado */}
         {!user && (

@@ -38,53 +38,56 @@ export default function Layout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: "absolute",
-            backgroundColor: "transparent",
-            borderTopWidth: 0,
-            elevation: 0,
-            shadowOpacity: 0,
-            height: 70,
-            paddingBottom: 20,
-            paddingTop: 10,
-
-          },
-          default: {},
-        }),
+      tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+      headerShown: false,
+      tabBarButton: HapticTab,
+      tabBarBackground: TabBarBackground,
+      tabBarStyle: Platform.select({
+        ios: {
+        // Use a transparent background on iOS to show the blur effect
+        position: "absolute",
+        backgroundColor: "transparent",
+        borderTopWidth: 0,
+        elevation: 0,
+        shadowOpacity: 0,
+        height: 85, // Aumenta la altura
+        paddingBottom: 35, // Más espacio abajo
+        paddingTop: 10,
+        },
+        default: {
+        height: 70,
+        paddingBottom: 20,
+        paddingTop: 10,
+        },
+      }),
       }}
     >
       <Tabs.Screen
-        name="index"
-        options={{
-          title: "Yo",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person.fill" color={color} />
-          ),
-        }}
+      name="index"
+      options={{
+        title: "Yo",
+        tabBarIcon: ({ color }) => (
+        <IconSymbol size={28} name="person.fill" color={color} />
+        ),
+      }}
       />
       <Tabs.Screen
-        name="explore"
-        options={{
-          title: "Mis oinks",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person.2.fill" color={color} />
-          ),
-        }}
+      name="social"
+      options={{
+        title: "Mis oinks",
+        tabBarIcon: ({ color }) => (
+        <IconSymbol size={28} name="person.2.fill" color={color} />
+        ),
+      }}
       />
       <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Ajustes",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="gearshape.fill" color={color} />
-          ),
-        }}
+      name="settings"
+      options={{
+        title: "Ajustes",
+        tabBarIcon: ({ color }) => (
+        <IconSymbol size={28} name="gearshape.fill" color={color} />
+        ),
+      }}
       />
     </Tabs>
   );
