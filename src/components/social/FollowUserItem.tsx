@@ -54,19 +54,23 @@ export default function FollowUserItem({
       }}
     >
       {/* Pet icon (if provided) */}
-      <View style={{ width: 56, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{ width: 56, alignItems: "center", justifyContent: "center" }}
+      >
         <Text style={{ fontSize: 36 }}>{petEmoji || "🐾"}</Text>
       </View>
 
       <View style={{ flex: 1 }}>
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>
           {characterName ? `${characterName}` : ""}
-          <Text style={{ color: "#888", fontWeight: "normal" }}> @{username}</Text>
         </Text>
+        <Text style={{ color: "#888", fontWeight: "normal" }}> {username}</Text>
 
         {/* Mood shown under title only for "seguido" list (requested) */}
         {type === "seguido" && moodEmoji && moodDescription && (
-          <View style={{ flexDirection: "row", alignItems: "center", marginTop: 6 }}>
+          <View
+            style={{ flexDirection: "row", alignItems: "center", marginTop: 6 }}
+          >
             <Text style={{ fontSize: 20, marginRight: 8 }}>{moodEmoji}</Text>
             <Text style={{ color: "#444" }}>{moodDescription}</Text>
           </View>
@@ -87,7 +91,10 @@ export default function FollowUserItem({
                 title="Rechazar"
                 color="#d32f2f"
                 onPress={() =>
-                  confirmAction(onReject || (() => {}), "¿Seguro que quieres rechazar la solicitud?" )
+                  confirmAction(
+                    onReject || (() => {}),
+                    "¿Seguro que quieres rechazar la solicitud?"
+                  )
                 }
               />
             )}
@@ -96,7 +103,10 @@ export default function FollowUserItem({
                 title="Cancelar"
                 color="#888"
                 onPress={() =>
-                  confirmAction(onCancel || (() => {}), "¿Seguro que quieres cancelar la solicitud?" )
+                  confirmAction(
+                    onCancel || (() => {}),
+                    "¿Seguro que quieres cancelar la solicitud?"
+                  )
                 }
               />
             )}
@@ -108,7 +118,10 @@ export default function FollowUserItem({
             <Button
               title="Cancelar solicitud"
               onPress={() =>
-                confirmAction(onCancel || (() => {}), "¿Seguro que quieres cancelar la solicitud?" )
+                confirmAction(
+                  onCancel || (() => {}),
+                  "¿Seguro que quieres cancelar la solicitud?"
+                )
               }
             />
           </View>
@@ -121,7 +134,10 @@ export default function FollowUserItem({
                 title="Eliminar seguidor"
                 color="#d32f2f"
                 onPress={() =>
-                  confirmAction(onDelete || (() => {}), "¿Seguro que quieres eliminar a este seguidor?" )
+                  confirmAction(
+                    onDelete || (() => {}),
+                    "¿Seguro que quieres eliminar a este seguidor?"
+                  )
                 }
               />
             )}
@@ -130,7 +146,10 @@ export default function FollowUserItem({
                 title="Dejar de seguir"
                 color="#d32f2f"
                 onPress={() =>
-                  confirmAction(onDelete || (() => {}), "¿Seguro que quieres dejar de seguir?" )
+                  confirmAction(
+                    onDelete || (() => {}),
+                    "¿Seguro que quieres dejar de seguir?"
+                  )
                 }
               />
             )}
